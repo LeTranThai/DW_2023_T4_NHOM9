@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .viewgoldprice {
+        text-align: center;
+        font-size: 30px;
+      }
+      .province {
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+      select {
+        border-radius: 0px;
+        border-style: solid;
+        border-width: 1px;
+        width: 100%;
+        height: 50px;
+        margin-top: 13px;
+        margin-bottom: 10px;
+        padding: 0 5px;
+      }
+      table tbody tr td:first-child {
+        text-align: left;
+      }
+      h2 {
+        text-align: center;
+        color: #003468;
+        text-transform: uppercase;
+        border-width: 1px;
+        border-style: solid;
+        font-size: 1.4em;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+      }
+      thead {
+        display: table-header-group;
+        vertical-align: middle;
+        border-color: inherit;
+      }
+      tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+      }
+      table tr th {
+        border: 1px solid #000;
+        padding: 10px 5px;
+        box-sizing: border-box;
+        text-align: center;
+        background-color: #003468;
+        color: #fff;
+        font-size: 1em;
+      }
+      table tr td {
+        border: 1px solid #000;
+        padding: 10px 5px;
+        box-sizing: border-box;
+        text-align: center;
+        color: #003468;
+        font-weight: 600;
+        font-size: 1.2em;
+      }
+      input {
+        height: 40px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viewgoldprice">
+      <span> Xem giá vàng tại đây </span>
+    </div>
+    <div class="province">
+      <label for="tinh">Chọn khu vực:</label>
+      <select id="tinh" onchange="filterTinh()">
+        <option value="0">Hồ Chí Minh</option>
+        <option value="1">Hà Nội</option>
+        <option value="2">Cần Thơ</option>
+        <option value="3">Đà Nẵng</option>
+        <option value="4">Tây Nguyên</option>
+        <option value="5">Đông Nam Bộ</option>
+        <!-- Thêm các tỉnh khác vào đây -->
+      </select>
+
+      <h2>
+        Cập nhật ngày:
+        <input
+          type="datetime-local"
+          name="txtDatetimeLocal"
+          id="txtDatetimeLocal"
+        />
+      </h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Loại vàng | ĐVT: 1.000đ/Chỉ</th>
+            <th>Giá mua</th>
+            <th>Giá bán</th>
+          </tr>
+        </thead>
+        <tbody class="content-price">
+          <tr>
+            <td>Vàng miếng SJC 999.9</td>
+            <td><span>7,240</span></td>
+            <td><span>7,360</span></td>
+          </tr>
+          <tr>
+            <td>Nhẫn Trơn PNJ 999.9</td>
+            <td><span>6,130</span></td>
+            <td><span>6,245</span></td>
+          </tr>
+          <tr>
+            <td>Vàng Kim Bảo 999.9</td>
+            <td><span>6,130</span></td>
+            <td><span>6,245</span></td>
+          </tr>
+          <tr>
+            <td>Vàng Phúc Lộc Tài 999.9</td>
+            <td><span>6,130</span></td>
+            <td><span>6,250</span></td>
+          </tr>
+          <tr>
+            <td>Vàng nữ trang 999.9</td>
+            <td><span>6,125</span></td>
+            <td><span>6,205</span></td>
+          </tr>
+          <tr>
+            <td>Vàng nữ trang 999</td>
+            <td><span>6,119</span></td>
+            <td><span>6,199</span></td>
+          </tr>
+          <tr>
+            <td>Vàng nữ trang 99</td>
+            <td><span>6,053</span></td>
+            <td><span>6,153</span></td>
+          </tr>
+          <tr>
+            <td>Vàng 750 (18K)</td>
+            <td><span>4,529</span></td>
+            <td><span>4,669</span></td>
+          </tr>
+          <tr>
+            <td>Vàng 585 (14K)</td>
+            <td><span>3,505</span></td>
+            <td><span>3,645</span></td>
+          </tr>
+          <tr>
+            <td>Vàng 416 (10K)</td>
+            <td><span>2,456</span></td>
+            <td><span>2,596</span></td>
+          </tr>
+          <tr>
+            <td>Vàng miếng PNJ (999.9)</td>
+            <td><span>6,130</span></td>
+            <td><span>6,250</span></td>
+          </tr>
+          <tr>
+            <td>Vàng 916 (22K)</td>
+            <td><span>5,644</span></td>
+            <td><span>5,694</span></td>
+          </tr>
+          <tr>
+            <td>Vàng 650 (15.6K)</td>
+            <td><span>3,908</span></td>
+            <td><span>4,048</span></td>
+          </tr>
+          <tr>
+            <td>Vàng 680 (16.3K)</td>
+            <td><span>4,094</span></td>
+            <td><span>4,234</span></td>
+          </tr>
+          <tr>
+            <td>Vàng 610 (14.6K)</td>
+            <td><span>3,660</span></td>
+            <td><span>3,800</span></td>
+          </tr>
+          <tr>
+            <td>Vàng 375 (9K)</td>
+            <td><span>2,202</span></td>
+            <td><span>2,342</span></td>
+          </tr>
+          <tr>
+            <td>Vàng 333 (8K)</td>
+            <td><span>1,923</span></td>
+            <td><span>2,063</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <script>
+        function filterTinh() {
+          var select = document.getElementById("tinh");
+          var selectedValue = select.options[select.selectedIndex].text;
+        }
+      </script>
+    </div>
+  </body>
+</html>

@@ -31,18 +31,17 @@ public class ServiceStaging {
     private static void createTable(Connection connection, String tableName) throws SQLException {
         String createTableQuery = "CREATE TABLE " + tableName + " ("
                 + "id INT AUTO_INCREMENT PRIMARY KEY,"
-                + " TEXT not null,"
-                + "date_create_data TEXT not null,"
-                + "category TEXT not null ,"
                 + "address TEXT not null,"
-                + "price TEXT not null,"
-                + "area TEXT not null,"
-                + "href TEXT not null,"
-                + "description TEXT not null,"
-                + "create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+                + "pricebuy INT not null,"
+                + "pricesell INTnot null ,"
+                + "address TEXT not null,"
+                + "dayUpdate Date not null,"
+                + "timeUpdate Time not null,"
+                + "type TEXT not null,"
                 + ")";
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(createTableQuery);
         }
     }
+    
 }

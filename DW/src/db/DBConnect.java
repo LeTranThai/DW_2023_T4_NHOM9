@@ -1,38 +1,64 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+
+//import static constants.VariableEnv.NAME_DB_STAGING;
 
 public class DBConnect {
-    public DBConnect(String control, String root, String s) {
+    //    String url = "jdbc:mysql://localhost:3306/" + NAME_DB_STAGING;
+//    String user = "root";
+//    String pass = "";
+    Connection conn;
+    static DBConnect install;
+
+    /**
+     * Connect Database
+     */
+    public DBConnect(String db, String user, String pass) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db, user, pass);
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static void main(String[] args) {
-        // Thông tin kết nối cơ sở dữ liệu MariaDB
-        String url = "jdbc:mysql://localhost:3066/condbstaging";
-        String username = "root";
-        String password = "";
+//    public static DBConnect getInstall() {
+//        if (install == null) install = new DBConnect();
+//        return install;
+//    }
 
+    public Statement get() {
+        if (conn == null) return null;
         try {
-            // Đăng ký driver JDBC
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // Kết nối cơ sở dữ liệu
-            Connection connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Kết nối thành công!");
-
-            // Thực hiện các thao tác trên cơ sở dữ liệu ở đây (nếu cần)
-
-            // Đóng kết nối sau khi sử dụng
-            connection.close();
-            System.out.println("Đã đóng kết nối.");
-        } catch (ClassNotFoundException e) {
-            System.err.println("Lỗi: Không tìm thấy driver JDBC");
-            e.printStackTrace();
+            return conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         } catch (SQLException e) {
-            System.err.println("Lỗi kết nối cơ sở dữ liệu: " + e.getMessage());
-            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public PreparedStatement preStatement(String sql) {
+        if (conn == null) return null;
+        try {
+            return conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Connection getConnection() {
+        return this.conn;
+    }
+
+
+    /**
+     * Close connect database
+     */
+    public void closeConnectDB() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
